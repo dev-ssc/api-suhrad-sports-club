@@ -20,11 +20,11 @@ const uploadFile = (req, res) => {
     .then(response => {
       const sharepointId = response.data.d.ID;
       console.log('SharePoint ID:', sharepointId);
-      res.send('File uploaded successfully.');
+      res.json({ success: true, sharepointId }); // Send ID as part of response
     })
     .catch(error => {
       console.error('Error uploading file:', error);
-      res.status(500).send('Error uploading file.');
+      res.status(500).json({ success: false, error: 'Error uploading file.' }); // Send error message in response
     });
 };
 
