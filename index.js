@@ -1,11 +1,28 @@
-const express = require('express')
-const app = express()
-const port = 3000
+// app.js
+const express = require('express');
+const uploadRoutes = require('./routes/uploadRoutes');
+const fileRoutes = require('./routes/fileRoutes');
+const config = require('./config/config');
+const swaggerUi = require('swagger-ui-express');
+const swaggerJSDoc = require('swagger-jsdoc');
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+const app = express();
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+// Initialize Swagger JSdoc
+const swaggerSpec = swaggerJSDoc({
+  swaggerDefinition: config.swaggerDefinition,
+  apis: config.apiPaths,
+});
+
+// Serve Swagger UI
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+// Use the upload routes
+app.use(uploadRoutes);
+
+// Use the file routes
+app.use(fileRoutes);
+
+app.listen(config.port, () => {
+  console.log(`Server is running on port ${config.port}`);
+});

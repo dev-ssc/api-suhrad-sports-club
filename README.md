@@ -1,13 +1,25 @@
-# GitHub Codespaces ♥️ Express
+# Project Title
 
-Welcome to your shiny new Codespace running Express! We've got everything fired up and running for you to explore Express.
+Brief description of your project.
 
-You've got a blank canvas to work on from a git perspective as well. There's a single initial commit with the what you're seeing right now - where you go from here is up to you!
+## Installation and Usage
 
-Everything you do here is contained within this one codespace. There is no repository on GitHub yet. If and when you’re ready you can click "Publish Branch" and we’ll create your repository and push up your project. If you were just exploring then and have no further need for this code then you can simply delete your codespace and it's gone forever.
+To get started with the project, follow these steps:
 
-To run this application:
+1. **Installation**: First, install the project dependencies by running the following command in your terminal:
 
-```
-npm start
-```
+    ```bash
+    npm install
+    ```
+
+2. **Usage**: Once the dependencies are installed, you can start the project by running:
+
+    ```bash
+    npm start
+    ```
+
+    This command will start the server, and your project will be accessible at the specified port (if any).
+
+3. **API Documentation**: The API documentation is available at `http://localhost:<port>/api-docs`, where `<port>` is the port on which your server is running. You can use this URL to explore and interact with the API endpoints using Swagger UI.
+
+
