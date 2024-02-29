@@ -2,9 +2,11 @@
 const express = require('express');
 const uploadRoutes = require('./routes/uploadRoutes');
 const fileRoutes = require('./routes/fileRoutes');
+const authRoutes = require('./routes/auth');
 const config = require('./config/config');
 const swaggerUi = require('swagger-ui-express');
 const swaggerJSDoc = require('swagger-jsdoc');
+const upload = require('./multerConfig'); // Import Multer configuration
 
 const app = express();
 
@@ -22,6 +24,9 @@ app.use(uploadRoutes);
 
 // Use the file routes
 app.use(fileRoutes);
+app.use(upload.single('file'));
+
+app.use('/auth', authRoutes);
 
 app.listen(config.port, () => {
   console.log(`Server is running on port ${config.port}`);
