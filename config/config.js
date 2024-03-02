@@ -1,4 +1,5 @@
 module.exports = {
+    mongoURI: 'mongodb+srv://suhrad:3OsdZShmkZHUycRe@cluster0.6kgebr6.mongodb.net/test?retryWrites=true&w=majority',
     driveId:'b!kBzzB53bfk-vOGF7Laht6pFTAj6axXpFg-JDdGXypiZ9JHWWiA6ETLSEjsC-q6Zg',
     siteUrl: 'https://your-sharepoint-site-url',
     username: 'your-username',
