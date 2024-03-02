@@ -3,35 +3,38 @@ const express = require('express');
 const fileController = require('../controllers/fileController');
 
 const router = express.Router();
-
 /**
  * @swagger
- * /file/{id}:
+ * tags:
+ *   name: One Drive APIs
+ *   description: Azure related APIs
+ * /files/{folderId}:
  *   get:
- *     summary: Get file by ID
- *     description: Retrieve file data from SharePoint by its ID
+ *     summary: Get files by folder ID
+ *     description: Retrieve files from SharePoint by folder ID
+ *     tags: [One Drive APIs]
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: folderId
  *         required: true
- *         description: ID of the file to retrieve
+ *         description: ID of the folder to retrieve files from
  *         schema:
  *           type: string
  *     responses:
  *       200:
- *         description: File data retrieved successfully
+ *         description: Files retrieved successfully
  *       500:
- *         description: Error retrieving file
+ *         description: Error retrieving files
  */
-router.get('/file/:id', async (req, res) => {
-  const fileId = req.params.id;
-
-  try {
-    const fileData = await fileController.getFileById(fileId);
-    res.json(fileData);
-  } catch (error) {
-    res.status(500).send(error.message);
-  }
-});
+router.get('/files/:folderId', async (req, res) => {
+    const folderId = req.params.folderId;
+  
+    try {
+      const files = await fileController.getFilesByFolderId(folderId);
+      res.json(files);
+    } catch (error) {
+      res.status(500).send(error.message);
+    }
+  });
 
 module.exports = router;

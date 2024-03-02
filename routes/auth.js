@@ -17,15 +17,18 @@ const pca = new PublicClientApplication({
 
 // Define scopes for accessing resources
 const scopes = ['offline_access', 'user.read']; // Add necessary scopes for your application
-
 /**
  * @swagger
+ * tags:
+ *   name: One Drive APIs
+ *   description: Azure related APIs
  * /auth/device:
  *   get:
  *     summary: Get device code for authentication
  *     description: |
  *       Initiates the authentication process by requesting a device code from Microsoft.
  *       The user can use this device code to authenticate on a separate device.
+*     tags: [One Drive APIs]
  *     responses:
  *       '200':
  *         description: Device code successfully generated
@@ -79,13 +82,12 @@ router.get('/device', async (req, res) => {
 /**
  * @swagger
  * tags:
- *   name: Authentication
- *   description: APIs for authentication
- * 
+ *   name: One Drive APIs
+ *   description: Azure related APIs
  * /auth/accesstoken:
  *   get:
  *     summary: Get app-only access token
- *     tags: [Authentication]
+ *     tags: [One Drive APIs]
  *     responses:
  *       200:
  *         description: Successful response with access token
@@ -109,9 +111,9 @@ router.get('/device', async (req, res) => {
  *                   description: Description of the internal server error
  */
 // Route to get the app-only access token
-const graphToken = require('./graphToken');
+const graphToken = require('../utilities/graphToken');
 
-const settings = require('./appSettings');
+const settings = require('../config/appSettings');
 function initializeGraph(settings) {
     graphToken.initializeGraphForAppOnlyAuth(settings);
   }
