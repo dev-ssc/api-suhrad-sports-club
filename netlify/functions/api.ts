@@ -1,16 +1,30 @@
+// YOUR_BASE_DIRECTORY/netlify/functions/api.ts
+
+import express, { Router } from "express";
+import serverless from "serverless-http";
+
+const api = express();
+
+const router = Router();
+router.get("/hello", (req, res) => res.send("Hello World!"));
+
+api.use("/api/", router);
+
+export const handler = serverless(api);
+
+
 // app.js
-const express = require('express');
-const uploadRoutes = require('./routes/uploadRoutes');
-const fileRoutes = require('./routes/fileRoutes');
-const userRoutes = require('./routes/userRoutes');
-const authRoutes = require('./routes/auth');
-const config = require('./config/config');
+const uploadRoutes = require('../../routes/uploadRoutes')
+const fileRoutes = require('../../routes/fileRoutes');
+const userRoutes = require('../../routes/userRoutes');
+const authRoutes = require('../../routes/auth');
+const config = require('../../config/config');
 const swaggerUi = require('swagger-ui-express');
 const swaggerJSDoc = require('swagger-jsdoc');
-const upload = require('./multerConfig'); // Import Multer configuration
+const upload = require('../../multerConfig'); // Import Multer configuration
 const bodyParser = require('body-parser');
 const app = express();
-const connectToDatabase = require('./config/db'); // Import the database connection function
+const connectToDatabase = require('../../config/db'); // Import the database connection function
 const cors = require('cors');
 
 // Initialize Swagger JSdoc
