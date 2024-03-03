@@ -21,5 +21,5 @@ module.exports = {
       ],
     },
     apiPaths: ['./routes/*.js'],
-    apiPathsNetify: ['../routes/*.js'],
+    apiPathsNetify: ['../../routes/*.js'],
   };
