@@ -17,7 +17,7 @@ import cors from 'cors'
 const app = express();
 
 const router = Router();
-router.get("/hello", (req, res) => res.send("Hello World!"));
+router.get('/hello', (req, res) => res.send('Hello World!'));
 
 app.use("/api", router);
 
@@ -25,8 +25,8 @@ app.use("/api", router);
 
 // Initialize Swagger JSdoc
 const swaggerSpec = swaggerJSDoc({
-    swaggerDefinition: config.swaggerDefinition,
-    apis: config.apiPaths,
+  swaggerDefinition: config.swaggerDefinition,
+  apis: config.apiPathsNetify,
 });
 
 // Enable CORS
@@ -45,10 +45,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(uploadRoutes);
 
 // Use the file routes
-app.use("/api", fileRoutes);
+app.use('/api', fileRoutes);
 app.use(upload.single('file'));
-app.use("/api", userRoutes);
-app.use('api/auth', authRoutes);
+app.use('/api', userRoutes);
+app.use('/api/auth', authRoutes); // Fixed missing '/' at the beginning
+
 // MongoDB URI
 const mongoURI = config.mongoURI;
 
