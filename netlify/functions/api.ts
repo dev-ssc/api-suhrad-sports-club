@@ -13,21 +13,24 @@ import upload from '../../multerConfig'
 import bodyParser from 'body-parser'
 import connectToDatabase from '../../config/db'
 import cors from 'cors'
-
+const swaggerSpec = swaggerJSDoc({
+    encoding: 'utf8',
+    failOnErrors: false,
+    verbose: false,
+    format: 'yaml', // or 'json', depending on your preference
+    swaggerDefinition: config.swaggerDefinition,
+    definition: {}, // or provide your Swagger definition here if needed
+    apis: config.apiPathsNetify,
+});
 const app = express();
 
 const router = Router();
-router.get('/hello', (req, res) => res.send('Hello World!'));
+router.get('/hello', (req, res) => res.send('Hello World test!'));
 
 app.use("/api", router);
 
 
 
-// Initialize Swagger JSdoc
-const swaggerSpec = swaggerJSDoc({
-  swaggerDefinition: config.swaggerDefinition,
-  apis: config.apiPathsNetify,
-});
 
 // Enable CORS
 app.use(cors());
