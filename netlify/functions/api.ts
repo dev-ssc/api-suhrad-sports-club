@@ -36,7 +36,11 @@ app.use("/api", router);
 app.use(cors());
 // Handle preflight requests for all routes
 app.options('*', cors());
-
+// Middleware to set Access-Control-Allow-Origin header for all routes
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    next();
+  });
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb' }));
 
