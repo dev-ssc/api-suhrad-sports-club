@@ -13,6 +13,10 @@ import upload from '../../multerConfig'
 import bodyParser from 'body-parser'
 import connectToDatabase from '../../config/db'
 import cors from 'cors'
+const {
+  SwaggerUIBundle,
+  SwaggerUIStandalonePreset,
+} = require("swagger-ui-dist");
 const swaggerSpec = swaggerJSDoc({
     encoding: 'utf8',
     failOnErrors: false,
