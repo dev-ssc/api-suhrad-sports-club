@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "netlify dev"
   },
   "dependencies": {
     "@azure/identity": "^3.3.2",
