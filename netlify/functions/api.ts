@@ -24,7 +24,7 @@ const swaggerSpec = swaggerJSDoc({
     format: 'yaml', // or 'json', depending on your preference
     swaggerDefinition: config.swaggerDefinition,
     definition: {}, // or provide your Swagger definition here if needed
-    apis: config.apiPathsNetify,
+    apis: config.apiPaths,
 });
 const app = express();
 
@@ -32,13 +32,20 @@ app.use(cors());
 // Handle preflight requests for all routes
 app.options('*', cors()); 
 // Serve Swagger UI
-app.use('/api/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 const router = Router();
+app.use(
+  '/api/api-docs',
+  express.static('node_modules/swagger-ui-dist/', {index: false}),
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerSpec),
+);
+//app.use('/api/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
 
 // Enable CORS
 
 
-router.get('/hello', (req, res) => res.send('Hello World test v1!'));
+router.get('/hello', (req, res) => res.send('Hello World test v3!'));
 
 app.use("/api", router);
 
