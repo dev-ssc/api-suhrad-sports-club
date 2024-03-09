@@ -1,41 +1,31 @@
-const mongoose = require('../config/db'); // Import mongoose instance from db.js
 const User = require('../models/User');
 const Tournament = require('../models/Tournament');
 
-// Function to handle insertion of user and tournament
 async function insertUserAndTournament(req, res) {
   try {
-    // Create a new user object
- // Extract data from the request body
-    // console.log("req",req.body)
-    // Create a new user object based on the updated schema
-    const { username, email, bowlerSkill, batsmanSkill, profile_picture } = req.body;
-
-    // Create the playerskill object
-    const skills = bowlerSkill
+    const { firstName, lastName, email, phoneNumber, address, profilePicture, rideDetails, skills } = req.body;
     
-
-    // Create a new user instance
     const newUser = new User({
-      username,
+      firstName,
+      lastName,
       email,
-      skills,
-      profile_picture
-    });
-    // Save the user to the database
-    const savedUser = await newUser.save();
-     console.log("Saved",savedUser)
-    // Create a new tournament object
-    const newTournament = new Tournament({
-      // Extract tournament data from request body or form data
-      // Example: tournament name, date, etc.
-      user_id: savedUser._id, // Assign the user ID to the tournament
-      team_id: '', // Keep team_id empty
-      player_skill: req.body.skills, // Extract player skill from form data
-      tournament_id: 'abct' // Set tournament ID as 'abct'
+      phoneNumber,
+      address,
+      profilePicture
     });
 
-    // Save the tournament to the database
+    const savedUser = await newUser.save();
+    console.log("rideDetails",rideDetails)
+    console.log("skills",skills)
+    const newTournament = new Tournament({
+      tournamentName: 'ACT2024',
+      userId: savedUser._id,
+      teamId: '',
+      bidAmount: '',
+      rideDetails: rideDetails,
+      skills: skills
+    });
+
     const savedTournament = await newTournament.save();
 
     res.status(201).json({ user: savedUser, tournament: savedTournament });
@@ -47,32 +37,27 @@ async function insertUserAndTournament(req, res) {
 
 async function getAllUserData(req, res) {
     try {
-      // Find all users
       const users = await User.find();
   
-      // Array to store user data with related tournaments
       const userDataWithTournaments = [];
   
-      // Iterate through each user
       for (const user of users) {
-        // Find related tournaments for each user
-        const tournaments = await Tournament.find({ user_id: user._id });
+        const tournaments = await Tournament.find({ userId: user._id });
   
-        // Combine user data with tournament data
         const userData = {
           _id: user._id,
-          username: user.username,
+          firstName: user.firstName,
+          lastName: user.lastName,
           email: user.email,
-          skills: user.skills,
-          profile_picture: user.profile_picture,
+          phoneNumber: user.phoneNumber,
+          address: user.address,
+          profilePicture: user.profilePicture,
           tournaments: tournaments
         };
   
-        // Push combined data to array
         userDataWithTournaments.push(userData);
       }
   
-      // Return array of user data with related tournaments
       res.json(userDataWithTournaments);
     } catch (error) {
       console.error('Error:', error);
@@ -81,10 +66,6 @@ async function getAllUserData(req, res) {
   }
   
   module.exports = {
+    insertUserAndTournament,
     getAllUserData
   };
-  
-
-module.exports = {
-  insertUserAndTournament,getAllUserData
-};

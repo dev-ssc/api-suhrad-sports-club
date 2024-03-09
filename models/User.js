@@ -1,12 +1,19 @@
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-  username: { type: String, required: true },
-  email: { type: String, required: true },
-  skills:  { type: String, required: true },
-  profile_picture: { type: String }
+  firstName: { type: String },
+  lastName: { type: String },
+  email: { type: String },
+  phoneNumber: { type: String },
+  address: {
+    street: { type: String },
+    city: { type: String },
+    state: { type: String },
+    postalCode: { type: String }
+  },
+  profilePicture: { type: String }
 });
 
-const User = mongoose.model('User', userSchema);
+const users = mongoose.model('users', userSchema); // Using lowercase 'users' for model name
 
-module.exports = User;
+module.exports = users;

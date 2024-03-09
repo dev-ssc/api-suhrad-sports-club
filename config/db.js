@@ -10,6 +10,8 @@ const options = {
 // Export a function to establish MongoDB connection
 module.exports = function connectToDatabase(mongoURI) {
   mongoose.connect(mongoURI, options)
-    .then(() => console.log('MongoDB connected'))
-    .catch(err => console.error('MongoDB connection error:', err));
+    .then(() => console.log('db connected'))
+    .catch(err => console.error('db connection error:', err));
 };
+
+

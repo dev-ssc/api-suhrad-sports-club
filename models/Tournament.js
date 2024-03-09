@@ -1,26 +1,22 @@
 const mongoose = require('mongoose');
 
 const tournamentSchema = new mongoose.Schema({
-  user_id: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true
+  tournamentName: { type: String },
+  userId: { type: String, required: true },
+  teamId: { type: String, default: '' },
+  bidAmount: { type: String, default: '' },
+  rideDetails: {
+    provideRides: { type: String },
+    numberOfRides: { type: String }
   },
-  team_id: {
-    type: String,
-    default: ''
-  },
-  player_skill: {
-    type: String,
-    default:''
-  },
-  tournament_id: {
-    type: String,
-    default: 'abct' // Assuming tournament_id is 'abct'
+  skills: {
+    skillSet: { type: String },
+    ratingBatting: { type: String },
+    ratingBowler: { type: String }
   }
   // Add other fields as needed
 });
 
-const Tournament = mongoose.model('Tournament', tournamentSchema);
+const Tournaments = mongoose.model('ACT2024', tournamentSchema); // Model name changed to 'Tournaments'
 
-module.exports = Tournament;
+module.exports = Tournaments;
