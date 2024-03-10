@@ -12,4 +12,4 @@ const redirectController = (req, res, next) => {
   }
 };
 
-module.exports = { redirectController };
+module.exports = redirectController;
