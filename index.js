@@ -12,12 +12,15 @@ const bodyParser = require('body-parser');
 const app = express();
 const connectToDatabase = require('./config/db'); // Import the database connection function
 const cors = require('cors');
+const redirectController = require('./controllers/redirectController');
 
 // Initialize Swagger JSdoc
 const swaggerSpec = swaggerJSDoc({
   swaggerDefinition: config.swaggerDefinition,
   apis: config.apiPaths,
 });
+
+app.use(redirectController);
 
 // Enable CORS
 app.use(cors());
