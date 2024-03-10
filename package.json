@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "start": "netlify dev"
+    "start": "netlify dev",
+    "azureStart": "node index.js"
   },
   "dependencies": {
     "@azure/cosmos": "^4.0.0",
