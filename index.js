@@ -1,17 +1,18 @@
 // app.js
 const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const swaggerUi = require('swagger-ui-express');
+const swaggerJSDoc = require('swagger-jsdoc');
+const upload = require('./multerConfig'); 
+const connectToDatabase = require('./config/db');
+const config = require('./config/config');
 const uploadRoutes = require('./routes/uploadRoutes');
 const fileRoutes = require('./routes/fileRoutes');
 const userRoutes = require('./routes/userRoutes');
 const authRoutes = require('./routes/auth');
-const config = require('./config/config');
-const swaggerUi = require('swagger-ui-express');
-const swaggerJSDoc = require('swagger-jsdoc');
-const upload = require('./multerConfig'); // Import Multer configuration
-const bodyParser = require('body-parser');
+
 const app = express();
-const connectToDatabase = require('./config/db'); // Import the database connection function
-const cors = require('cors');
 
 // Initialize Swagger JSdoc
 const swaggerSpec = swaggerJSDoc({
@@ -19,26 +20,24 @@ const swaggerSpec = swaggerJSDoc({
   apis: config.apiPaths,
 });
 
-// Enable CORS
+// Enable CORS and parse JSON & URL-encoded bodies
 app.use(cors());
-
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb' }));
 
-// Serve Swagger UI
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-// Parse JSON bodies
-app.use(bodyParser.json());
-// Parse URL-encoded bodies
-app.use(bodyParser.urlencoded({ extended: true }));
-// Use the upload routes
-app.use(uploadRoutes);
+// Serve Swagger UI and set Access-Control-Allow-Origin header for all routes
+app.use('/api/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec), (req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  next();
+});
 
-// Use the file routes
-app.use(fileRoutes);
-app.use(upload.single('file'));
-app.use(userRoutes);
-app.use('/auth', authRoutes);
+// Parse JSON and URL-encoded bodies
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// Use the upload routes, including multer middleware
+app.use('/api', uploadRoutes, fileRoutes, userRoutes, upload.single('file'), authRoutes); 
+
 // MongoDB URI
 const mongoURI = config.mongoURI;
 
