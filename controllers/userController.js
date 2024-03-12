@@ -35,6 +35,47 @@ async function insertUserAndTournament(req, res) {
   }
 }
 
+
+async function filterUsers (req, res)  {
+  try {
+      const { firstName, lastName, email, phoneNumber, city, state, postalCode, count } = req.query;
+
+      let query = {};
+      if (firstName) {
+          query.firstName = firstName;
+      }
+      if (lastName) {
+          query.lastName = lastName;
+      }
+      if (email) {
+          query.email = email;
+      }
+      if (phoneNumber) {
+          query.phoneNumber = phoneNumber;
+      }
+      if (city) {
+          query['address.city'] = city;
+      }
+      if (state) {
+          query['address.state'] = state;
+      }
+      if (postalCode) {
+          query['address.postalCode'] = postalCode;
+      }
+
+      let filteredData = await User.find(query);
+
+      if (count === 'true') {
+          const totalCount = await User.countDocuments(query);
+          res.json({ count: totalCount });
+      } else {
+          res.json(filteredData);
+      }
+  } catch (error) {
+      res.status(500).json({ error: error.message });
+  }
+}
+
 async function getAllUserData(req, res) {
     try {
       const users = await User.find();
@@ -67,5 +108,6 @@ async function getAllUserData(req, res) {
   
   module.exports = {
     insertUserAndTournament,
-    getAllUserData
+    getAllUserData,
+    filterUsers
   };
