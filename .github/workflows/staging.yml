@@ -1,7 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy Node.js app to Azure Web App - api-suhradsportsclub-staging
+name: Deploy to staging
 
 on:
   push:
@@ -66,6 +66,6 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'api-suhradsportsclub-staging'
-          slot-name: 'Production'
+          slot-name: 'Staging'
           package: .
           
