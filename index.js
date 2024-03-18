@@ -10,6 +10,7 @@ const config = require('./config/config');
 const uploadRoutes = require('./routes/uploadRoutes');
 const fileRoutes = require('./routes/fileRoutes');
 const userRoutes = require('./routes/userRoutes');
+const excelRoutes = require('./routes/excelRoutes');
 const authRoutes = require('./routes/auth');
 
 const app = express();
@@ -36,7 +37,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Use the upload routes, including multer middleware
-app.use('/api', uploadRoutes, fileRoutes, userRoutes, upload.single('file'), authRoutes); 
+app.use('/api', uploadRoutes, fileRoutes, userRoutes, upload.single('file'), authRoutes,excelRoutes); 
 
 // MongoDB URI
 const mongoURI = config.mongoURI;
