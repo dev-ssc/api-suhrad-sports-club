@@ -18,7 +18,7 @@ module.exports = {
       },
       servers: [
         {
-          url: 'http://localhost:8888',
+          url: process.env.SERVER_URL || 'http://localhost:8888',
           description: 'Local server',
         },
       ],
