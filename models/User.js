@@ -14,6 +14,6 @@ const userSchema = new mongoose.Schema({
   profilePicture: { type: String }
 });
 
-const users = mongoose.model('users', userSchema); // Using lowercase 'users' for model name
+const users = mongoose.model('users-new', userSchema); // Using lowercase 'users' for model name
 
 module.exports = users;
