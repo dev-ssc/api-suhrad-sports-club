@@ -1,6 +1,6 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
-
+//
 // <UserAuthConfigSnippet>
 require('isomorphic-fetch');
 const azure = require('@azure/identity');

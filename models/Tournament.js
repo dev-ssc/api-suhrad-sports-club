@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { env } = require('../config/config');
 
 const tournamentSchema = new mongoose.Schema({
   tournamentName: { type: String },
@@ -17,6 +18,12 @@ const tournamentSchema = new mongoose.Schema({
   // Add other fields as needed
 });
 
-const Tournaments = mongoose.model('ACT2024', tournamentSchema); // Model name changed to 'Tournaments'
+let Tournaments;
+// Check the environment variable to determine which model to export
+if (env === 'staging') {
+  Tournaments= mongoose.model('ACT2024-staging', tournamentSchema);;
+} else {
+  Tournaments = mongoose.model('ACT2024', tournamentSchema);;
+}
 
 module.exports = Tournaments;
