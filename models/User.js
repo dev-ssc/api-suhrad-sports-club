@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { env } = require('../config/config');
 
 const userSchema = new mongoose.Schema({
   firstName: { type: String },
@@ -14,6 +15,12 @@ const userSchema = new mongoose.Schema({
   profilePicture: { type: String }
 });
 
-const users = mongoose.model('users-new', userSchema); // Using lowercase 'users' for model name
+let users;
+// Check the environment variable to determine which model to export
+if (env === 'staging') {
+  users = mongoose.model('users-new-staging', userSchema);
+} else {
+  users = mongoose.model('users-new', userSchema);
+}
 
 module.exports = users;
