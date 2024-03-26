@@ -103,16 +103,19 @@ async function exportDataToGoogleSheet() {
                 const tournamentInfo = [
                     tournament.skills.ratingBatting,
                     tournament.skills.ratingBowler,
-                    tournament.skills.skillSet,
-                    tournament.teamId,
-                    tournament.bidAmount
+                    tournament.skills.skillSet
                 ];
 
                 // Include isJoiningWaitingList if it exists
                 if (tournament.isJoiningWaitingList !== undefined) {
                     tournamentInfo.push(tournament.isJoiningWaitingList);
                 }
-
+                if (tournament.teamId !== undefined) {
+                    tournamentInfo.push(tournament.teamId);
+                }
+                if (tournament.bidAmount !== undefined) {
+                    tournamentInfo.push(tournament.bidAmount);
+                }
                 return tournamentInfo;
             }
             );
