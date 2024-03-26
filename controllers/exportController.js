@@ -99,14 +99,23 @@ async function exportDataToGoogleSheet() {
             console.log("tournaments",userTournaments)
 
             // Map tournament data to an array of arrays
-            const tournamentData = userTournaments.map(tournament => [
-                tournament.skills.ratingBatting,
-                tournament.skills.ratingBowler,
-                tournament.skills.skillSet,
-                tournament.isJoiningWaitingList,
-                tournament.teamId,
-                tournament.bidAmount
-            ]);
+            const tournamentData = userTournaments.map(tournament => {
+                const tournamentInfo = [
+                    tournament.skills.ratingBatting,
+                    tournament.skills.ratingBowler,
+                    tournament.skills.skillSet,
+                    tournament.teamId,
+                    tournament.bidAmount
+                ];
+
+                // Include isJoiningWaitingList if it exists
+                if (tournament.isJoiningWaitingList !== undefined) {
+                    tournamentInfo.push(tournament.isJoiningWaitingList);
+                }
+
+                return tournamentInfo;
+            }
+            );
 
             // Flatten tournamentData into a single array for the user
             const flattenedTournamentData = [].concat(...tournamentData);
