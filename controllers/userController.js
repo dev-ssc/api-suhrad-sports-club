@@ -3,7 +3,7 @@ const Tournament = require('../models/Tournament');
 
 async function insertUserAndTournament(req, res) {
   try {
-    const { firstName, lastName, email, phoneNumber, address, profilePicture, rideDetails, skills } = req.body;
+    const { firstName, lastName, email, phoneNumber, address, profilePicture, rideDetails, skills,isJoiningWaitingList } = req.body;
     
     const newUser = new User({
       firstName,
@@ -26,8 +26,8 @@ async function insertUserAndTournament(req, res) {
       skills: skills
     });
     // Check if isJoiningWaitingList exists in savedUser
-    if (savedUser.isJoiningWaitingList !== undefined) {
-      newTournamentData.isJoiningWaitingList = savedUser.isJoiningWaitingList;
+    if (isJoiningWaitingList !== undefined) {
+      newTournament.isJoiningWaitingList = isJoiningWaitingList;
     }
     const savedTournament = await newTournament.save();
 
