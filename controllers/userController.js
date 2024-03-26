@@ -20,6 +20,7 @@ async function insertUserAndTournament(req, res) {
     const newTournament = new Tournament({
       tournamentName: 'ACT2024',
       userId: savedUser._id,
+      isJoiningWaitingList:savedUser.isJoiningWaitingList,
       teamId: '',
       bidAmount: '',
       rideDetails: rideDetails,

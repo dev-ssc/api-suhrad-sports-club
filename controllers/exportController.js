@@ -103,6 +103,7 @@ async function exportDataToGoogleSheet() {
                 tournament.skills.ratingBatting,
                 tournament.skills.ratingBowler,
                 tournament.skills.skillSet,
+                tournament.isJoiningWaitingList,
                 tournament.teamId,
                 tournament.bidAmount
             ]);
