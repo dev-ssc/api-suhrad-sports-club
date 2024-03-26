@@ -25,7 +25,10 @@ async function insertUserAndTournament(req, res) {
       rideDetails: rideDetails,
       skills: skills
     });
-
+    // Check if isJoiningWaitingList exists in savedUser
+    if (savedUser.isJoiningWaitingList !== undefined) {
+      newTournamentData.isJoiningWaitingList = savedUser.isJoiningWaitingList;
+    }
     const savedTournament = await newTournament.save();
 
     res.status(201).json({ user: savedUser, tournament: savedTournament });
