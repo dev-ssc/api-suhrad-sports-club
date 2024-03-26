@@ -14,7 +14,8 @@ const tournamentSchema = new mongoose.Schema({
     skillSet: { type: String },
     ratingBatting: { type: String },
     ratingBowler: { type: String }
-  }
+  },
+  isJoiningWaitingList:{ type: String, default: '' },
   // Add other fields as needed
 });
 
